@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilizações globais para uma aparência moderna */
+body {
+  @apply bg-gray-900 text-gray-100 antialiased;
+}
+
+h1 {
+  @apply text-4xl font-extrabold text-green-400 tracking-wide;
+}
+
+button {
+  @apply px-5 py-3 rounded-lg transition duration-300 ease-in-out transform active:scale-95 shadow-md hover:shadow-lg;
+}
+
+button.primary {
+  @apply bg-green-500 text-white hover:bg-green-600;
+}
+
+button.secondary {
+  @apply bg-gray-700 text-white hover:bg-gray-600;
+}
+
+/* Estilização de inputs e selects */
+input, select {
+  @apply mt-1 p-3 border rounded-lg w-full focus:ring-2 focus:ring-green-500 bg-gray-800 text-white placeholder-gray-400;
+}
+
+/* Cartões e containers */
+.card {
+  @apply bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-700 transition transform ;
+}
+
+/* Ajustes para tabelas */
+.table {
+  @apply w-full border-collapse border border-gray-700 shadow-lg rounded-xl overflow-hidden bg-gray-800;
+}
+
+.table th {
+  @apply border border-gray-700 p-3 bg-green-600 text-white text-left;
+}
+
+.table td {
+  @apply border border-gray-700 p-3 bg-gray-700 text-gray-300;
+}
+
+/* Animações e efeitos visuais */
+.hover-grow {
+  @apply transition-transform transform hover:scale-105;
+}
+
+.fade-in {
+  @apply transition-opacity duration-500 ease-in opacity-0;
+}
+.fade-in.show {
+  @apply opacity-100;
+}
