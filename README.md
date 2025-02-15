@@ -65,4 +65,4 @@ Ver os endpoints em: `http://localhost:3333/swagger`
 
 **Frontend**
 
-Veja o frontend em: `http://localhost:0000`
+Veja o frontend em: `http://localhost:3000`
