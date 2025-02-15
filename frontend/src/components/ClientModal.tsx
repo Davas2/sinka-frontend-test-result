@@ -18,11 +18,22 @@ interface ClientModalProps {
 }
 
 export default function ClientModal({ client, onClose }: ClientModalProps) {
-  const handleDelete = async () => {
+  const handleDeleteClient = async () => {
     try {
+      // Primeiro, define active como false
+      await fetch(`http://localhost:3333/client/${client.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ active: false }),
+      });
+
+      // Depois, deleta o cliente
       await fetch(`http://localhost:3333/client/${client.id}`, {
         method: 'DELETE',
       });
+
       onClose();
       window.location.reload(); // Recarrega a lista de clientes
     } catch (error) {
@@ -36,13 +47,15 @@ export default function ClientModal({ client, onClose }: ClientModalProps) {
         <h2 className="text-xl font-semibold text-primary text-center mb-4">Confirmar Exclusão</h2>
         <div className="flex flex-col items-center gap-4 mb-4">
           <img src={client.avatar || '/images/default-avatar.png'} alt={client.username} className="w-16 h-16 rounded-full shadow-md" />
-          <p className="text-center text-gray-300">Tem certeza que deseja excluir o cliente <strong>{client.username}</strong>?</p>
+          <p className="text-center text-gray-300">
+            Tem certeza que deseja excluir o cliente <strong>{client.username}</strong>?
+          </p>
         </div>
         <div className="mt-4 flex justify-between">
           <button className="button secondary" onClick={onClose}>
             Cancelar
           </button>
-          <button className="button primary bg-red-600 hover:bg-red-700" onClick={handleDelete}>
+          <button className="button primary bg-red-600 hover:bg-red-700" onClick={handleDeleteClient}>
             Excluir
           </button>
         </div>

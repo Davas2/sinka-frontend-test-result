@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import ClientModal from './ClientModal';
 
 interface Client {
   id?: string;
@@ -23,10 +24,13 @@ interface ClientFormProps {
 }
 
 export default function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteClient, setDeleteClient] = useState<Client | null>(null);
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<Client>({
     defaultValues: client || { avatar: '', username: '', email: '', password: '', active: true },
@@ -38,20 +42,47 @@ export default function ClientForm({ client, onSuccess, onCancel }: ClientFormPr
       setValue('username', client.username);
       setValue('email', client.email);
       setValue('active', client.active);
+      setValue('createdAt', client.createdAt);
+      setValue('updatedAt', client.updatedAt);
+      setValue('deletedAt', client.deletedAt);
     }
   }, [client, setValue]);
 
   const onSubmit = async (data: Client) => {
     try {
+      const { id, ...formattedData } = {
+        ...data,
+        active: String(getValues('active')) === 'true',
+      };
+
+      const cleanedData = {
+        ...formattedData,
+        createdAt: data.createdAt || undefined,
+        updatedAt: data.updatedAt || undefined,
+        deletedAt: data.deletedAt || undefined,
+      };
+
       if (client?.id) {
-        await axios.patch(`http://localhost:3333/client/${client.id}`, data);
+        await axios.patch(`http://localhost:3333/client/${client.id}`, cleanedData);
       } else {
-        await axios.post('http://localhost:3333/client', data);
+        await axios.post('http://localhost:3333/client', cleanedData);
       }
       onSuccess();
       window.location.reload(); // Recarrega a página após a adição
     } catch (error) {
       console.error('Erro ao salvar cliente:', error);
+    }
+  };
+
+  const handleDeleteClient = async () => {
+    if (!deleteClient) return;
+
+    try {
+      await axios.delete(`http://localhost:3333/client/${deleteClient.id}`);
+      setDeleteClient(null);
+      onSuccess();
+    } catch (error) {
+      console.error('Erro ao remover cliente:', error);
     }
   };
 

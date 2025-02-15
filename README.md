@@ -56,3 +56,13 @@ Subir o código em um repositório público do GitHub com as instruções para e
 **Endpoints backend:**
 
 Ver os endpoints em: `http://localhost:3333/swagger`
+
+## Como rodar o frontend
+
+1. Ir até a pasta `frontend`
+2. Instalar os módulos com `npm install`
+3. Iniciar frontend: `npm run dev`
+
+**Frontend**
+
+Veja o frontend em: `http://localhost:0000`

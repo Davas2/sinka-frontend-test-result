@@ -46,26 +46,14 @@ export default function ClientTable({ onEditClient }: ClientTableProps) {
     }
   };
 
-  const handleDeleteClient = async () => {
-    if (!deleteClient) return;
-
-    try {
-      await axios.delete(`http://localhost:3333/client/${deleteClient.id}`);
-      setClients((prevClients) => prevClients.filter((c) => c.id !== deleteClient.id));
-      setDeleteClient(null);
-    } catch (error) {
-      console.error('Erro ao remover cliente:', error);
-    }
-  };
-
   return (
     <div className="overflow-x-auto p-6">
-      <table className="table bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+      <table className="table bg-gray-800 rounded-xl shadow-lg overflow-hidden text-center">
         <thead>
-          <tr className="bg-green-600 text-white uppercase text-sm leading-normal">
-            <th className="p-3 text-left">Avatar</th>
-            <th className="p-3 text-left">Usuário</th>
-            <th className="p-3 text-left">E-mail</th>
+          <tr className="bg-green-600 text-white uppercase text-sm leading-normal text-center">
+            <th className="p-3 text-center">Avatar</th>
+            <th className="p-3 text-center">Usuário</th>
+            <th className="p-3 text-center">E-mail</th>
             <th className="p-3 text-center">Status</th>
             <th className="p-3 text-center">Criado em</th>
             <th className="p-3 text-center">Ações</th>
@@ -73,7 +61,7 @@ export default function ClientTable({ onEditClient }: ClientTableProps) {
         </thead>
         <tbody className="text-gray-300 text-sm font-light">
           {clients.map((client) => (
-            <tr key={client.id} className="text-center border border-gray-700 hover:bg-gray-700 transition-all">
+            <tr key={client.id} className="border border-gray-700 bg-gray-700 transition-all">
               <td className="p-3">
                 <Image
                   src={'/images/default-avatar.png'}

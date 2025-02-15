@@ -39,7 +39,7 @@ input, select {
 }
 
 .table th {
-  @apply border border-gray-700 p-3 bg-green-600 text-white text-left;
+  @apply border border-gray-700 p-3 bg-green-600 text-white;
 }
 
 .table td {
