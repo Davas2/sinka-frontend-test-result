@@ -1,4 +1,4 @@
-# Teste Frontend Sinka
+# Resultado do teste Frontend Sinka
 
 ## Objetivo
 
